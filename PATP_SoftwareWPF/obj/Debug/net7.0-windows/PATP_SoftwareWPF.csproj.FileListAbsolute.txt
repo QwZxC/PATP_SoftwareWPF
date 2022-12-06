@@ -1,0 +1,10 @@
+C:\Users\mihai\source\repos\PATP_SoftwareWPF\PATP_SoftwareWPF\obj\Debug\net7.0-windows\PATP_SoftwareWPF.csproj.AssemblyReference.cache
+C:\Users\mihai\source\repos\PATP_SoftwareWPF\PATP_SoftwareWPF\obj\Debug\net7.0-windows\Windows\MainWindow.g.cs
+C:\Users\mihai\source\repos\PATP_SoftwareWPF\PATP_SoftwareWPF\obj\Debug\net7.0-windows\Windows\Pages\AccountingAndFinanceDepartmentPage.g.cs
+C:\Users\mihai\source\repos\PATP_SoftwareWPF\PATP_SoftwareWPF\obj\Debug\net7.0-windows\Windows\Pages\HRDepartamentPage.g.cs
+C:\Users\mihai\source\repos\PATP_SoftwareWPF\PATP_SoftwareWPF\obj\Debug\net7.0-windows\Windows\Pages\PlanningDepartmentPage.g.cs
+C:\Users\mihai\source\repos\PATP_SoftwareWPF\PATP_SoftwareWPF\obj\Debug\net7.0-windows\Windows\Pages\ProductionDepartmentPage.g.cs
+C:\Users\mihai\source\repos\PATP_SoftwareWPF\PATP_SoftwareWPF\obj\Debug\net7.0-windows\Windows\Pages\StartPage.g.cs
+C:\Users\mihai\source\repos\PATP_SoftwareWPF\PATP_SoftwareWPF\obj\Debug\net7.0-windows\App.g.cs
+C:\Users\mihai\source\repos\PATP_SoftwareWPF\PATP_SoftwareWPF\obj\Debug\net7.0-windows\PATP_SoftwareWPF_MarkupCompile.cache
+C:\Users\mihai\source\repos\PATP_SoftwareWPF\PATP_SoftwareWPF\obj\Debug\net7.0-windows\PATP_SoftwareWPF_MarkupCompile.lref
