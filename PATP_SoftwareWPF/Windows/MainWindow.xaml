@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PAPT_SoftwareWPF"
         mc:Ignorable="d"
-        Title="Программное обеспечение для ПАТП" Height="450" Width="1800">
+        Title="Программное обеспечение для ПАТП" Height="450" Width="800">
     <Grid >
         <Frame x:Name="mainFrame" Grid.Column="0" NavigationUIVisibility="Hidden" Navigating="frame_Navigating"/>
     </Grid >

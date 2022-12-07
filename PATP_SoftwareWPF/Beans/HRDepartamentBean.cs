@@ -23,8 +23,11 @@ namespace PAPT_SoftwareWPF.Beans
         private Employment selectedEmployment;
         private List<Department> departments;
         private Department selectedDepartment;
-        
-        private bool isSaved = false;
+
+        private bool isSaved;
+        private bool isValidNameSurname;
+        private bool isValidContactNumber;
+        private bool isValidDateOfBirth;
 
         public HRDepartamentBean(MainBean mainBean, ApplicationContext db)
         {
@@ -35,7 +38,11 @@ namespace PAPT_SoftwareWPF.Beans
             LodadData();
         }
 
-        public MainBean MainBean 
+        #region Properties
+
+
+
+        public MainBean MainBean
         {
             get { return mainBean; }
             private set { mainBean = value; }
@@ -71,6 +78,43 @@ namespace PAPT_SoftwareWPF.Beans
             set { departments = value; OnPropertyChanged("Departments"); }
         }
 
+        public bool IsValidNameSurname
+        {
+            get { return isValidNameSurname; }
+            set { isValidNameSurname = value; OnPropertyChanged("IsValidName"); }
+        }
+
+        public bool IsValidContactNumber
+        {
+            get { return isValidContactNumber; }
+            set { isValidContactNumber = value;}
+        }
+
+        public bool IsValidDateOfBirth
+        {
+            get { return isValidDateOfBirth; }
+            set { isValidDateOfBirth = value;}
+        }
+
+        #endregion
+
+        #region Validation
+        public void CheckValidColumnNameSurname()
+        {
+            IsValidNameSurname = !Employments.All(employment => string.IsNullOrEmpty(employment.Name) || string.IsNullOrEmpty(employment.Surname));
+        }
+
+        public void CheckValodColumnContactNumber()
+        {
+            IsValidContactNumber = !Employments.All(employment => string.IsNullOrEmpty(employment.ContactNumber));
+        }
+
+        public void CheckValidColumnYearOfBirth()
+        {
+            IsValidDateOfBirth = !Employments.ToList().All(employment => string.IsNullOrEmpty(employment.DateOfBirth));
+        }
+
+        #endregion
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
             if (PropertyChanged != null)
@@ -88,6 +132,7 @@ namespace PAPT_SoftwareWPF.Beans
                     db.Employments.Remove(employment);
                 }
             });
+            IsSaved = false;
         }
 
         public void AddEmployment()
@@ -97,6 +142,9 @@ namespace PAPT_SoftwareWPF.Beans
                 EmploymentId = Employments.Count + 1
             };
             employment.Department = Departments[0];
+            IsSaved = false;
+            IsValidContactNumber = false;
+            isValidContactNumber = false;
             Employments.Add(employment);
             db.Employments.Add(employment);
         }
@@ -113,7 +161,6 @@ namespace PAPT_SoftwareWPF.Beans
                 db.SaveChanges();
                 db.Departments.ForEachAsync(department => Departments.Add(department));
             }
-
             db.Employments.ForEachAsync(employment => Employments.Add(employment));
         }
         

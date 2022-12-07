@@ -16,7 +16,7 @@ namespace PAPT_SoftwareWPF.Models
         private string surname;
         private string patronymic;
         private string dateOfBirth;
-        private int contactNumber;
+        private string contactNumber;
         private Department department;
 
         public bool isDeleted;
@@ -26,7 +26,7 @@ namespace PAPT_SoftwareWPF.Models
             name = "";
             surname = "";
             patronymic = "";
-            contactNumber = 0;
+            contactNumber = "";
             dateOfBirth = "";
         }
 
@@ -60,7 +60,7 @@ namespace PAPT_SoftwareWPF.Models
             set { dateOfBirth = value; OnPropertyChanged(); }
         }
 
-        public int ContactNumber
+        public string ContactNumber
         {
             get { return contactNumber; }
             set { contactNumber = value; OnPropertyChanged(); }

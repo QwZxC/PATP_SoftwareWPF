@@ -1,13 +1,14 @@
-﻿using System;
+﻿using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Input;
 using System.Windows.Media;
 using PAPT_SoftwareWPF.Beans;
 using PAPT_SoftwareWPF.Models;
+using System;
 
 namespace PAPT_SoftwareWPF.Windows.Pages
 {
@@ -18,7 +19,8 @@ namespace PAPT_SoftwareWPF.Windows.Pages
     {
         HRDepartamentBean hRDepartmentbean;
         StartBean startBean;
-
+        private Brush invalidFieldColor = (Brush)new BrushConverter().ConvertFrom("#FFFFDDDB");
+        private Brush validFieldColor = (Brush)new BrushConverter().ConvertFrom("#FFFFFFFF");
         public HRDepartamentPage(HRDepartamentBean hRDepartamentBean, StartBean startBean)
         {
             this.startBean = startBean;
@@ -65,6 +67,71 @@ namespace PAPT_SoftwareWPF.Windows.Pages
         private void employmentsDataTable_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             hRDepartmentbean.SelectedEmployment = employmentsDataTable.SelectedItem as Employment;
+        }
+
+        private void nameTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            textBox.Text = Regex.Replace(textBox.Text, "[^А-Яа-яЁё]*[ ]*", "");
+            if (string.IsNullOrWhiteSpace(textBox.Text))
+            {
+                textBox.Background = invalidFieldColor;
+                HRDepartamentbean.IsValidNameSurname = false;
+                return;
+            }
+            textBox.Background = validFieldColor;
+            if (!HRDepartamentbean.IsValidNameSurname)
+                HRDepartamentbean.CheckValidColumnNameSurname();
+        }
+
+        private void surnameTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            textBox.Text = Regex.Replace(textBox.Text, "[^А-Яа-яЁё]*[ ]*", "");
+            if (string.IsNullOrWhiteSpace(textBox.Text))
+            {
+                textBox.Background = invalidFieldColor;
+                HRDepartamentbean.IsValidNameSurname = false;
+                return;
+            }
+            textBox.Background = validFieldColor;
+            if (!HRDepartamentbean.IsValidNameSurname)
+                HRDepartamentbean.CheckValidColumnNameSurname();
+        }
+
+        private void contactNumberTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            textBox.Text = Regex.Replace(textBox.Text, "[^0-9]*", "");
+            if (string.IsNullOrWhiteSpace(textBox.Text) || textBox.Text.Length != 11)
+            {
+                textBox.Background = invalidFieldColor;
+                HRDepartamentbean.IsValidContactNumber = false;
+                return;
+            }
+            textBox.Background = validFieldColor;
+            if (!HRDepartamentbean.IsValidContactNumber)
+                HRDepartamentbean.CheckValodColumnContactNumber();
+        }
+
+        private void dateOfBirthTextBox_Changed(object sender, TextChangedEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            textBox.Text = Regex.Replace(textBox.Text, "[^0-9]*[/]", "");
+            if (string.IsNullOrWhiteSpace(textBox.Text))
+            {
+                textBox.Text = "0";
+                textBox.CaretIndex = 1;
+            }
+            if (textBox.Text.Length != 10 || DateTime.Parse(textBox.Text) > DateTime.Now)
+            {
+                textBox.Background = invalidFieldColor;
+                HRDepartamentbean.IsValidDateOfBirth = false;
+                return;
+            }
+            textBox.Background = validFieldColor;
+            if (!HRDepartamentbean.IsValidDateOfBirth)
+                HRDepartamentbean.CheckValidColumnYearOfBirth();
         }
     }
 }

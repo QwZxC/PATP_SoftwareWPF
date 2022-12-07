@@ -44,7 +44,9 @@
                                             MinWidth="182.5">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                         TextChanged="nameTextBox_TextChanged"
+                                         Background="#FFFFDDDB"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -53,7 +55,9 @@
                                             MinWidth="182.5">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBox Text="{Binding Surname, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                <TextBox Text="{Binding Surname, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                         TextChanged="surnameTextBox_TextChanged"
+                                         Background="#FFFFDDDB"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -71,7 +75,10 @@
                                             MinWidth="182.5">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBox Text="{Binding DateOfBirth, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                <TextBox Text="{Binding DateOfBirth, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                         TextChanged="dateOfBirthTextBox_Changed"
+                                         MaxLength="10"
+                                         Background="#FFFFDDDB"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -80,7 +87,10 @@
                                             MinWidth="182.5">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBox Text="{Binding ContactNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                <TextBox Text="{Binding ContactNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                         Background="#FFFFDDDB"
+                                         MaxLength="11"
+                                         TextChanged="contactNumberTextBox_TextChanged"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -138,7 +148,8 @@
             </DataGrid>
 
             <StackPanel DataContext="{Binding Path=DataContext.SelectedEmployment, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Page}}}"
-                        Grid.Column="1">
+                        Grid.Column="1"
+                        Margin="5">
                 <TextBlock FontFamily="Inter"
                            FontSize="20"
                            TextWrapping="Wrap">
