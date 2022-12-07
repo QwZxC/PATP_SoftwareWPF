@@ -124,8 +124,12 @@
                         <MenuItem x:Name="addEmploymentMenuItem" 
                                   Header="Добавить"  
                                   StaysOpenOnClick="True"
-                                  Click="addEmploymentMenuItem_Click"/>
-                        <MenuItem x:Name="deleteEmploymentMenuItem" 
+                                  Click="addEmploymentMenuItem_Click"
+                                  FontFamily="Inter"
+                                  FontSize="20"/>
+                        <MenuItem x:Name="deleteEmploymentMenuItem"
+                                  FontFamily="Inter"
+                                  FontSize="20"
                                   Header="Удалить"
                                   Click="deleteEmploymentMenuItem_Click"/>
                     </ContextMenu>

@@ -8,10 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove=".gitignore" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="bin\Debug\net7.0-windows\PATP_SoftwareDB.db" />
   </ItemGroup>
 
