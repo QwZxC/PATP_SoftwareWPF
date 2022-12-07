@@ -55,7 +55,6 @@ namespace PAPT_SoftwareWPF.Windows.Pages
 
         private void saveButton_Click(object sender, RoutedEventArgs e)
         {
-            // Допилить с проверкой на изменения
             hRDepartmentbean.SaveChanges();
         }
 
@@ -76,12 +75,12 @@ namespace PAPT_SoftwareWPF.Windows.Pages
             if (string.IsNullOrWhiteSpace(textBox.Text))
             {
                 textBox.Background = invalidFieldColor;
-                HRDepartamentbean.IsValidNameSurname = false;
+                HRDepartamentbean.IsValidName = false;
                 return;
             }
             textBox.Background = validFieldColor;
-            if (!HRDepartamentbean.IsValidNameSurname)
-                HRDepartamentbean.CheckValidColumnNameSurname();
+            if (!HRDepartamentbean.IsValidName)
+                HRDepartamentbean.CheckValidColumnName();
         }
 
         private void surnameTextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -91,12 +90,12 @@ namespace PAPT_SoftwareWPF.Windows.Pages
             if (string.IsNullOrWhiteSpace(textBox.Text))
             {
                 textBox.Background = invalidFieldColor;
-                HRDepartamentbean.IsValidNameSurname = false;
+                HRDepartamentbean.IsValidSurname = false;
                 return;
             }
             textBox.Background = validFieldColor;
-            if (!HRDepartamentbean.IsValidNameSurname)
-                HRDepartamentbean.CheckValidColumnNameSurname();
+            if (!HRDepartamentbean.IsValidSurname)
+                HRDepartamentbean.CheckValidColumnSurname();
         }
 
         private void contactNumberTextBox_TextChanged(object sender, TextChangedEventArgs e)

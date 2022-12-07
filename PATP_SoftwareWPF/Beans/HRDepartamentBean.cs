@@ -28,6 +28,7 @@ namespace PAPT_SoftwareWPF.Beans
         private bool isValidNameSurname;
         private bool isValidContactNumber;
         private bool isValidDateOfBirth;
+        private bool isDataValid;
 
         public HRDepartamentBean(MainBean mainBean, ApplicationContext db)
         {
@@ -35,11 +36,10 @@ namespace PAPT_SoftwareWPF.Beans
             this.db = db;
             employments = new ObservableCollection<Employment>();
             departments = new List<Department>();
-            LodadData();
+            LoadData();
         }
 
-        #region Properties
-
+        #region Propertie
 
 
         public MainBean MainBean
@@ -78,40 +78,86 @@ namespace PAPT_SoftwareWPF.Beans
             set { departments = value; OnPropertyChanged("Departments"); }
         }
 
-        public bool IsValidNameSurname
+        public bool IsValidName
         {
             get { return isValidNameSurname; }
-            set { isValidNameSurname = value; OnPropertyChanged("IsValidName"); }
+            set 
+            { 
+                isValidNameSurname = value;
+                IsSaveButtonEnabel = value ? CheckDataValid() : false;
+            }
+        }
+
+        public bool IsValidSurname
+        {
+            get { return isValidNameSurname; }
+            set
+            {
+                isValidNameSurname = value;
+                IsSaveButtonEnabel = value ? CheckDataValid() : false;
+            }
         }
 
         public bool IsValidContactNumber
         {
             get { return isValidContactNumber; }
-            set { isValidContactNumber = value;}
+            set 
+            { 
+                isValidContactNumber = value;
+                IsSaveButtonEnabel = value ? CheckDataValid() : false;
+            }
         }
 
         public bool IsValidDateOfBirth
         {
             get { return isValidDateOfBirth; }
-            set { isValidDateOfBirth = value;}
+            set 
+            { 
+                isValidDateOfBirth = value;
+                IsSaveButtonEnabel = value ? CheckDataValid() : false;
+            }
+        }
+
+        public bool IsSaveButtonEnabel
+        {
+            get { return isDataValid; }
+            set { isDataValid = value; OnPropertyChanged("IsSaveButtonEnabel"); }
         }
 
         #endregion
 
         #region Validation
-        public void CheckValidColumnNameSurname()
+        public void CheckValidColumnName()
         {
-            IsValidNameSurname = !Employments.All(employment => string.IsNullOrEmpty(employment.Name) || string.IsNullOrEmpty(employment.Surname));
+            IsValidName = Employments.All(employment => !string.IsNullOrEmpty(employment.Name));
+        }
+
+        public void CheckValidColumnSurname()
+        {
+            IsValidSurname = Employments.All(employment => !string.IsNullOrEmpty(employment.Name));
         }
 
         public void CheckValodColumnContactNumber()
         {
-            IsValidContactNumber = !Employments.All(employment => string.IsNullOrEmpty(employment.ContactNumber));
+            IsValidContactNumber = Employments.All(employment => !string.IsNullOrEmpty(employment.ContactNumber));
         }
 
         public void CheckValidColumnYearOfBirth()
         {
-            IsValidDateOfBirth = !Employments.ToList().All(employment => string.IsNullOrEmpty(employment.DateOfBirth));
+            IsValidDateOfBirth = Employments.ToList().All(employment => !string.IsNullOrEmpty(employment.DateOfBirth));
+        }
+
+        public void CheckAllColumn()
+        {
+            CheckValidColumnYearOfBirth();
+            CheckValodColumnContactNumber();
+            CheckValidColumnName();
+            CheckValidColumnSurname();
+            CheckDataValid();
+        }
+        private bool CheckDataValid()
+        {
+            return IsValidDateOfBirth && IsValidContactNumber && IsValidName && IsValidDateOfBirth && IsValidSurname;
         }
 
         #endregion
@@ -123,7 +169,7 @@ namespace PAPT_SoftwareWPF.Beans
 
         public void DeletEmployment(List<Employment> employments)
         {
-            employments.ForEach(member => member.isDeleted = true);
+            employments.ForEach(employments => employments.isDeleted = true);
             Employments.ToList().ForEach(employment => 
             {
                 if (employment.isDeleted)
@@ -142,14 +188,18 @@ namespace PAPT_SoftwareWPF.Beans
                 EmploymentId = Employments.Count + 1
             };
             employment.Department = Departments[0];
-            IsSaved = false;
             IsValidContactNumber = false;
-            isValidContactNumber = false;
+            IsValidDateOfBirth = false;
+            IsValidName = false;
+            IsValidSurname = false;
+            IsSaveButtonEnabel = false;
             Employments.Add(employment);
             db.Employments.Add(employment);
+            CheckAllColumn();
+            IsSaved = false;
         }
 
-        public void LodadData()
+        public void LoadData()
         {
             db.Departments.ForEachAsync(department => Departments.Add(department));
             if (Departments.Count == 0)
@@ -162,12 +212,14 @@ namespace PAPT_SoftwareWPF.Beans
                 db.Departments.ForEachAsync(department => Departments.Add(department));
             }
             db.Employments.ForEachAsync(employment => Employments.Add(employment));
+            IsSaveButtonEnabel = false;
         }
         
         public void SaveChanges()
         {
             db.SaveChanges();
             IsSaved = true;
+            IsSaveButtonEnabel = false;
         }
     }
 }

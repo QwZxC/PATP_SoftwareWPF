@@ -241,10 +241,21 @@
             <Button Content="Назад"
                     Grid.Column="0"
                     Click="backButton_Click"/>
-            
+
             <Button Content="Сохранить"
                     Grid.Column="1"
-                    Click="saveButton_Click"/>
+                    Click="saveButton_Click">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="IsEnabled" Value="False"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsSaveButtonEnabel}" Value="True">
+                                <Setter Property="IsEnabled" Value="True"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
         </Grid>
     </Grid>
 </Page>

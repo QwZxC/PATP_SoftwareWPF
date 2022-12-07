@@ -23,11 +23,7 @@ namespace PAPT_SoftwareWPF.Models
 
         public Employment()
         {
-            name = "";
-            surname = "";
             patronymic = "";
-            contactNumber = "";
-            dateOfBirth = "";
         }
 
         public int Id
