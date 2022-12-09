@@ -10,7 +10,9 @@ using System.Threading.Tasks;
 using PAPT_SoftwareWPF.Models;
 using PAPT_SoftwareWPF.Models.Data;
 using Microsoft.EntityFrameworkCore;
-
+using PAPT_SoftwareWPF.Reports;
+using PAPT_SoftwareWPF.Reports.ExelGenerators;
+using System.IO;
 
 namespace PAPT_SoftwareWPF.Beans
 {
@@ -23,6 +25,8 @@ namespace PAPT_SoftwareWPF.Beans
         private Employment selectedEmployment;
         private List<Department> departments;
         private Department selectedDepartment;
+        private HRReport hRReport;
+        private HRExcelGenerator hrExcelGenerator;
 
         private bool isSaved;
         private bool isValidNameSurname;
@@ -124,6 +128,17 @@ namespace PAPT_SoftwareWPF.Beans
             set { isDataValid = value; OnPropertyChanged("IsSaveButtonEnabel"); }
         }
 
+        public HRReport HRReport
+        {
+            get { return hRReport; }
+            set { hRReport = value; }
+        }
+
+        public HRExcelGenerator HRExcelGenerator
+        {
+            get { return HRExcelGenerator; }
+            set { hrExcelGenerator = value; }
+        }
         #endregion
 
         #region Validation
@@ -188,6 +203,7 @@ namespace PAPT_SoftwareWPF.Beans
                 EmploymentId = Employments.Count + 1
             };
             employment.Department = Departments[0];
+            Departments[0].Employments.Add(employment);
             IsValidContactNumber = false;
             IsValidDateOfBirth = false;
             IsValidName = false;
@@ -215,11 +231,24 @@ namespace PAPT_SoftwareWPF.Beans
             IsSaveButtonEnabel = false;
         }
         
+        public void ChangesDepartment()
+        {
+            SelectedDepartment.Employments.Add(SelectedEmployment);
+            IsSaved = false;
+        }
+
         public void SaveChanges()
         {
             db.SaveChanges();
             IsSaved = true;
             IsSaveButtonEnabel = false;
+        }
+
+        public void MakeReport()
+        {
+            Employments.ToList().ForEach(employment => HRReport.Employments.Add(employment));
+            var hrExelReport = HRExcelGenerator.Generate(HRReport);
+            File.WriteAllBytes("Отчет отдела кадров.xlsx", hrExelReport);
         }
     }
 }

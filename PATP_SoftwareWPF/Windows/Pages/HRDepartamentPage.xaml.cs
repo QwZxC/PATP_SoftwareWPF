@@ -60,7 +60,8 @@ namespace PAPT_SoftwareWPF.Windows.Pages
 
         private void departmentsComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-             HRDepartamentbean.SelectedDepartment = (sender as ComboBox).SelectedItem as Department;
+            HRDepartamentbean.SelectedDepartment = (sender as ComboBox).SelectedItem as Department;
+            HRDepartamentbean.ChangesDepartment();
         }
 
         private void employmentsDataTable_SelectionChanged(object sender, SelectionChangedEventArgs e)

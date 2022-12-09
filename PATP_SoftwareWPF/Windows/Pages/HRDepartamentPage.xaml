@@ -232,19 +232,19 @@
             </StackPanel>
         </Grid>
 
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="0.5*"/>
-            </Grid.ColumnDefinitions>
-            
+        <DockPanel Grid.Row="1"
+                   HorizontalAlignment="Center">
+
             <Button Content="Назад"
-                    Grid.Column="0"
-                    Click="backButton_Click"/>
+                    Click="backButton_Click"
+                    DockPanel.Dock="Left"
+                    FontFamily="Inter"
+                    FontSize="20"/>
 
             <Button Content="Сохранить"
-                    Grid.Column="1"
-                    Click="saveButton_Click">
+                    Click="saveButton_Click"
+                    FontFamily="Inter"
+                    FontSize="20">
                 <Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="IsEnabled" Value="False"/>
@@ -256,6 +256,14 @@
                     </Style>
                 </Button.Style>
             </Button>
-        </Grid>
+
+            <Button Content="В файл Exel"
+                    DockPanel.Dock="Right"
+                    FontSize="20"/>
+            
+            <Button Content="В файл Json"
+                    FontSize="20"
+                    DockPanel.Dock="Left"/>
+        </DockPanel>
     </Grid>
 </Page>
