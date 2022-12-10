@@ -16,5 +16,10 @@ namespace PAPT_SoftwareWPF.Reports
             get { return employments; }
             set { employments = value; }
         }
+
+        public HRReport(List<Employment> employments)
+        {
+            this.employments = employments;
+        }
     }
 }

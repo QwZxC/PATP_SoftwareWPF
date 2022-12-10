@@ -40,6 +40,9 @@ namespace PAPT_SoftwareWPF.Beans
             this.db = db;
             employments = new ObservableCollection<Employment>();
             departments = new List<Department>();
+            hRReport = new HRReport(Employments.ToList());
+            hrExcelGenerator = new HRExcelGenerator();
+            selectedDepartment = new Department();
             LoadData();
         }
 
@@ -136,7 +139,7 @@ namespace PAPT_SoftwareWPF.Beans
 
         public HRExcelGenerator HRExcelGenerator
         {
-            get { return HRExcelGenerator; }
+            get { return hrExcelGenerator; }
             set { hrExcelGenerator = value; }
         }
         #endregion
@@ -198,36 +201,37 @@ namespace PAPT_SoftwareWPF.Beans
 
         public void AddEmployment()
         {
-            Employment employment = new Employment() 
+            Employment employment = new Employment()
             {
                 EmploymentId = Employments.Count + 1
             };
-            employment.Department = Departments[0];
-            Departments[0].Employments.Add(employment);
+            
             IsValidContactNumber = false;
             IsValidDateOfBirth = false;
             IsValidName = false;
             IsValidSurname = false;
             IsSaveButtonEnabel = false;
             Employments.Add(employment);
-            db.Employments.Add(employment);
+            db.Employments.ToList().Add(employment);
             CheckAllColumn();
             IsSaved = false;
         }
 
         public void LoadData()
         {
-            db.Departments.ForEachAsync(department => Departments.Add(department));
+            db.Departments.ToList().ForEach(department => Departments.Add(department));
             if (Departments.Count == 0)
             {
-                db.Departments.Add(new Department("Отдел кадров"));
-                db.Departments.Add(new Department("Отдел планирования"));
-                db.Departments.Add(new Department("Отдел производства"));
-                db.Departments.Add(new Department("Отдел бухгалтерии и финансов"));
+                db.Departments.ToList().Add(new Department("Отдел кадров"));
+                db.Departments.ToList().Add(new Department("Отдел планирования"));
+                db.Departments.ToList().Add(new Department("Отдел производства"));
+                db.Departments.ToList().Add(new Department("Отдел бухгалтерии и финансов"));
                 db.SaveChanges();
-                db.Departments.ForEachAsync(department => Departments.Add(department));
+                db.Departments.ToList().ForEach(department => Departments.Add(department));
             }
-            db.Employments.ForEachAsync(employment => Employments.Add(employment));
+            int i = db.Employments.Local.Count;
+            int d = db.Employments.Local.Count;
+            db.Employments.ToList().ForEach(employment => Employments.Add(employment));
             IsSaveButtonEnabel = false;
         }
         

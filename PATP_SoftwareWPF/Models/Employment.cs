@@ -21,9 +21,25 @@ namespace PAPT_SoftwareWPF.Models
 
         public bool isDeleted;
 
+
         public Employment()
         {
+            name = "";
+            surname = "";
             patronymic = "";
+            dateOfBirth = "";
+            contactNumber = "";
+        }
+
+        public Employment(Employment employment)
+        {
+            id = employment.id;
+            name = employment.name;
+            surname = employment.surname;
+            patronymic = employment.patronymic;
+            dateOfBirth = employment.dateOfBirth;
+            contactNumber = employment.contactNumber;
+            department = employment.department;
         }
 
         public int Id

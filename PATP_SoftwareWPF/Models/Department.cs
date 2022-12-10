@@ -12,15 +12,10 @@ namespace PAPT_SoftwareWPF.Models
         private string name;
         private List<Employment> employments;
 
-        public Department(string name)
+        public Department(string name = "")
         {
             this.name = name;
-            employments = new List<Employment>();
-        }
-
-        public Department() 
-        {
-
+            employments= new List<Employment>();
         }
 
         public int Id 

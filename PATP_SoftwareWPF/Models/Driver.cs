@@ -16,7 +16,7 @@ namespace PAPT_SoftwareWPF.Models
         private string sateOfValidity;
         private int employementId;
 
-        public Driver()
+        public Driver(Employment employment)
         {
 
         }

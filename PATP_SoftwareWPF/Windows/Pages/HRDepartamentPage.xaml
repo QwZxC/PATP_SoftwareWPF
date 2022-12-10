@@ -14,7 +14,7 @@
             <RowDefinition />
             <RowDefinition Height="100" />
         </Grid.RowDefinitions>
-        
+
         <Grid Grid.Row="0">
             
             <Grid.ColumnDefinitions>
@@ -259,6 +259,7 @@
 
             <Button Content="В файл Exel"
                     DockPanel.Dock="Right"
+                    Click="createExelFileButton_Click"
                     FontSize="20"/>
             
             <Button Content="В файл Json"
