@@ -29,6 +29,7 @@ namespace PAPT_SoftwareWPF.Models
             patronymic = "";
             dateOfBirth = "";
             contactNumber = "";
+            department = null;
         }
 
         public Employment(Employment employment)

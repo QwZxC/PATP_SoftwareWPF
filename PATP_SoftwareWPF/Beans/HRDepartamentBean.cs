@@ -46,8 +46,7 @@ namespace PAPT_SoftwareWPF.Beans
             LoadData();
         }
 
-        #region Propertie
-
+        #region Properties
 
         public MainBean MainBean
         {
@@ -179,6 +178,7 @@ namespace PAPT_SoftwareWPF.Beans
         }
 
         #endregion
+
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
             if (PropertyChanged != null)
@@ -203,7 +203,8 @@ namespace PAPT_SoftwareWPF.Beans
         {
             Employment employment = new Employment()
             {
-                EmploymentId = Employments.Count + 1
+                EmploymentId = Employments.Count + 1,
+                Department = Departments[0]
             };
             
             IsValidContactNumber = false;
@@ -229,8 +230,6 @@ namespace PAPT_SoftwareWPF.Beans
                 db.SaveChanges();
                 db.Departments.ToList().ForEach(department => Departments.Add(department));
             }
-            int i = db.Employments.Local.Count;
-            int d = db.Employments.Local.Count;
             db.Employments.ToList().ForEach(employment => Employments.Add(employment));
             IsSaveButtonEnabel = false;
         }
