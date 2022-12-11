@@ -24,23 +24,7 @@ namespace PAPT_SoftwareWPF.Models
 
         public Employment()
         {
-            name = "";
-            surname = "";
             patronymic = "";
-            dateOfBirth = "";
-            contactNumber = "";
-            department = null;
-        }
-
-        public Employment(Employment employment)
-        {
-            id = employment.id;
-            name = employment.name;
-            surname = employment.surname;
-            patronymic = employment.patronymic;
-            dateOfBirth = employment.dateOfBirth;
-            contactNumber = employment.contactNumber;
-            department = employment.department;
         }
 
         public int Id

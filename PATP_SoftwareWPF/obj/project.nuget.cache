@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ktP8nJ8y+womEiuCc4X7rBHHTGKb6CDyJqji8j1lcSTKdoKeMyuHXSMJdBwsJcNHEjX8Nj+EFlsssyfnCP8Yog==",
+  "dgSpecHash": "BETlNknGcm/RTJhTnwdeU3mWEpmlaeGPfJOSDHaDn2xDchBL7CdeMXj3B73lpkEzxQpDfyJAXMFJXqLR9r8w9w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\mihai\\source\\repos\\PATP_SoftwareWPF\\PATP_SoftwareWPF\\PAPT_SoftwareWPF.csproj",
+  "projectFilePath": "C:\\Users\\mihai\\Source\\Repos\\PATP_SoftwareWPF\\PATP_SoftwareWPF\\PAPT_SoftwareWPF.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\mihai\\.nuget\\packages\\epplus\\6.1.1\\epplus.6.1.1.nupkg.sha512",
     "C:\\Users\\mihai\\.nuget\\packages\\epplus.interfaces\\6.1.1\\epplus.interfaces.6.1.1.nupkg.sha512",

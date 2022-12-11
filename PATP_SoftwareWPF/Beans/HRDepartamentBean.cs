@@ -42,11 +42,11 @@ namespace PAPT_SoftwareWPF.Beans
             departments = new List<Department>();
             hRReport = new HRReport(Employments.ToList());
             hrExcelGenerator = new HRExcelGenerator();
-            selectedDepartment = new Department();
             LoadData();
         }
 
-        #region Properties
+        #region Propertie
+
 
         public MainBean MainBean
         {
@@ -82,6 +82,18 @@ namespace PAPT_SoftwareWPF.Beans
         {
             get { return departments; }
             set { departments = value; OnPropertyChanged("Departments"); }
+        }
+
+        public HRReport HRReport
+        {
+            get { return hRReport; }
+            set { hRReport = value; }
+        }
+
+        public HRExcelGenerator HRExcelGenerator
+        {
+            get { return hrExcelGenerator; }
+            set { hrExcelGenerator = value; }
         }
 
         public bool IsValidName
@@ -130,17 +142,6 @@ namespace PAPT_SoftwareWPF.Beans
             set { isDataValid = value; OnPropertyChanged("IsSaveButtonEnabel"); }
         }
 
-        public HRReport HRReport
-        {
-            get { return hRReport; }
-            set { hRReport = value; }
-        }
-
-        public HRExcelGenerator HRExcelGenerator
-        {
-            get { return hrExcelGenerator; }
-            set { hrExcelGenerator = value; }
-        }
         #endregion
 
         #region Validation
@@ -178,7 +179,6 @@ namespace PAPT_SoftwareWPF.Beans
         }
 
         #endregion
-
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
             if (PropertyChanged != null)
@@ -201,45 +201,38 @@ namespace PAPT_SoftwareWPF.Beans
 
         public void AddEmployment()
         {
-            Employment employment = new Employment()
+            Employment employment = new Employment() 
             {
-                EmploymentId = Employments.Count + 1,
-                Department = Departments[0]
+                EmploymentId = Employments.Count + 1
             };
-            
+            employment.Department = Departments[0];
             IsValidContactNumber = false;
             IsValidDateOfBirth = false;
             IsValidName = false;
             IsValidSurname = false;
             IsSaveButtonEnabel = false;
             Employments.Add(employment);
-            db.Employments.ToList().Add(employment);
+            db.Employments.Add(employment);
             CheckAllColumn();
             IsSaved = false;
         }
 
         public void LoadData()
         {
-            db.Departments.ToList().ForEach(department => Departments.Add(department));
+            db.Departments.ForEachAsync(department => Departments.Add(department));
             if (Departments.Count == 0)
             {
-                db.Departments.ToList().Add(new Department("Отдел кадров"));
-                db.Departments.ToList().Add(new Department("Отдел планирования"));
-                db.Departments.ToList().Add(new Department("Отдел производства"));
-                db.Departments.ToList().Add(new Department("Отдел бухгалтерии и финансов"));
+                db.Departments.Add(new Department("Отдел кадров"));
+                db.Departments.Add(new Department("Отдел планирования"));
+                db.Departments.Add(new Department("Отдел производства"));
+                db.Departments.Add(new Department("Отдел бухгалтерии и финансов"));
                 db.SaveChanges();
-                db.Departments.ToList().ForEach(department => Departments.Add(department));
+                db.Departments.ForEachAsync(department => Departments.Add(department));
             }
-            db.Employments.ToList().ForEach(employment => Employments.Add(employment));
+            db.Employments.ForEachAsync(employment => Employments.Add(employment));
             IsSaveButtonEnabel = false;
         }
         
-        public void ChangesDepartment()
-        {
-            SelectedDepartment.Employments.Add(SelectedEmployment);
-            IsSaved = false;
-        }
-
         public void SaveChanges()
         {
             db.SaveChanges();

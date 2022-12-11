@@ -13,6 +13,7 @@ namespace PAPT_SoftwareWPF.Reports.ExelGenerators
 
         public byte[] Generate(HRReport report)
         {
+            //FIX ME Каким-то боком пришло больше работников, чем есть на самом деле
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             var package = new ExcelPackage();
 
