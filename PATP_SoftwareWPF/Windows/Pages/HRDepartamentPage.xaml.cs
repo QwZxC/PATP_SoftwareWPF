@@ -9,6 +9,9 @@ using System.Windows.Media;
 using PAPT_SoftwareWPF.Beans;
 using PAPT_SoftwareWPF.Models;
 using System;
+using System.Text.Json.Serialization;
+using System.Net.Http.Json;
+using Newtonsoft.Json;
 
 namespace PAPT_SoftwareWPF.Windows.Pages
 {
@@ -136,6 +139,11 @@ namespace PAPT_SoftwareWPF.Windows.Pages
         private void createExelFileButton_Click(object sender, RoutedEventArgs e)
         {
             HRDepartamentbean.MakeReport();
+        }
+
+        private void createJsonFileButton_Click(object sender, RoutedEventArgs e)
+        {
+            HRDepartamentbean.MakeJsonReport();
         }
     }
 }

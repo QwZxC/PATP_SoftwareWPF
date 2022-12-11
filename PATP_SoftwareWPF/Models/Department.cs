@@ -10,12 +10,10 @@ namespace PAPT_SoftwareWPF.Models
     {
         private int id;
         private string name;
-        private List<Employment> employments;
 
         public Department(string name = "")
         {
             this.name = name;
-            employments= new List<Employment>();
         }
 
         public int Id 
@@ -29,11 +27,6 @@ namespace PAPT_SoftwareWPF.Models
             set { name = value; OnPropertyChanged(); }
         }
 
-        public List<Employment> Employments
-        {
-            get { return employments; }
-            set { employments = value; }
-        }
 
     }
 }

@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using PAPT_SoftwareWPF.Reports;
 using PAPT_SoftwareWPF.Reports.ExelGenerators;
 using System.IO;
+using PAPT_SoftwareWPF.Reports.JsonGenerators;
 
 namespace PAPT_SoftwareWPF.Beans
 {
@@ -27,6 +28,8 @@ namespace PAPT_SoftwareWPF.Beans
         private Department selectedDepartment;
         private HRReport hRReport;
         private HRExcelGenerator hrExcelGenerator;
+        private HRJsonGenerator hrJsonGenerator;
+        private readonly string PATH = $"{Environment.CurrentDirectory}\\ json.json";
 
         private bool isSaved;
         private bool isValidNameSurname;
@@ -42,6 +45,7 @@ namespace PAPT_SoftwareWPF.Beans
             departments = new List<Department>();
             hRReport = new HRReport(Employments.ToList());
             hrExcelGenerator = new HRExcelGenerator();
+            hrJsonGenerator = new HRJsonGenerator(PATH);
             LoadData();
         }
 
@@ -94,6 +98,12 @@ namespace PAPT_SoftwareWPF.Beans
         {
             get { return hrExcelGenerator; }
             set { hrExcelGenerator = value; }
+        }
+        
+        public HRJsonGenerator HRJsonGenerator
+        {
+            get { return hrJsonGenerator; }
+            set { hrJsonGenerator = value; }
         }
 
         public bool IsValidName
@@ -245,6 +255,11 @@ namespace PAPT_SoftwareWPF.Beans
             Employments.ToList().ForEach(employment => HRReport.Employments.Add(employment));
             var hrExelReport = HRExcelGenerator.Generate(HRReport);
             File.WriteAllBytes("Отчет отдела кадров.xlsx", hrExelReport);
+        }
+
+        public void MakeJsonReport()
+        {
+            HRJsonGenerator.SaveData(Employments.ToList());
         }
     }
 }
