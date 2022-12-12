@@ -1,17 +1,13 @@
-﻿using System.Text.RegularExpressions;
+﻿using PAPT_SoftwareWPF.Beans;
+using PAPT_SoftwareWPF.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Input;
 using System.Windows.Media;
-using PAPT_SoftwareWPF.Beans;
-using PAPT_SoftwareWPF.Models;
-using System;
-using System.Text.Json.Serialization;
-using System.Net.Http.Json;
-using Newtonsoft.Json;
 
 namespace PAPT_SoftwareWPF.Windows.Pages
 {
@@ -34,7 +30,7 @@ namespace PAPT_SoftwareWPF.Windows.Pages
 
         public HRDepartamentBean HRDepartamentbean
         {
-            get { return hRDepartmentbean; } 
+            get { return hRDepartmentbean; }
             set { hRDepartmentbean = value; }
         }
         private void backButton_Click(object sender, RoutedEventArgs e)
@@ -144,6 +140,53 @@ namespace PAPT_SoftwareWPF.Windows.Pages
         private void createJsonFileButton_Click(object sender, RoutedEventArgs e)
         {
             HRDepartamentbean.MakeJsonReport();
+        }
+
+        private void departamentsCombobox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            HRDepartamentbean.CheckDepartmentEdition((sender as ComboBox).SelectedItem as Department);
+        }
+
+        private void CollectionViewSource_Filter(object sender, FilterEventArgs e)
+        {
+            //FIX ME СУПЕР ПУПЕР ПЛОХАЯ ФИЛЬТРАЦИЯ СДЕЛАТЬ ПО УМНОМУ
+            if (e.Item != null)
+            {
+                Department department = departmentFilterComboBox.SelectedItem as Department;
+                string name = nameFilterTextBox.Text;
+                string surname = surnameFilterTextBox.Text;
+                string patronomic = patronomicFilterTextBox.Text;
+                string dateOfbirth = dateOfBirthFilterTextBox.Text;
+                string contactNumber = contactNumberFilterTextBox.Text;
+
+                if (department != null)
+                    e.Accepted = (e.Item as Employment).Department == department;
+
+                if (!string.IsNullOrEmpty(name))
+                    e.Accepted = (e.Item as Employment).Name.StartsWith(name);
+
+                if (!string.IsNullOrEmpty(surname))
+                    e.Accepted = (e.Item as Employment).Surname.StartsWith(surname);
+
+                if (!string.IsNullOrEmpty(patronomic))
+                    e.Accepted = (e.Item as Employment).Patronymic.StartsWith(patronomic);
+
+                if (!string.IsNullOrEmpty(dateOfbirth))
+                    e.Accepted = (e.Item as Employment).DateOfBirth.StartsWith(dateOfbirth);
+
+                if (!string.IsNullOrEmpty(contactNumber))
+                    e.Accepted = (e.Item as Employment).ContactNumber.StartsWith(contactNumber);
+            } 
+        }
+
+        private void departmentFilterComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            CollectionViewSource.GetDefaultView(employmentsDataTable.ItemsSource).Refresh();
+        }
+
+        private void universal_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            CollectionViewSource.GetDefaultView(employmentsDataTable.ItemsSource).Refresh();
         }
     }
 }

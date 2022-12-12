@@ -15,6 +15,7 @@ using PAPT_SoftwareWPF.Reports.ExelGenerators;
 using System.IO;
 using PAPT_SoftwareWPF.Reports.JsonGenerators;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace PAPT_SoftwareWPF.Beans
 {
@@ -30,13 +31,12 @@ namespace PAPT_SoftwareWPF.Beans
         private HRReport hRReport;
         private HRExcelGenerator hrExcelGenerator;
         private HRJsonGenerator hrJsonGenerator;
-        private readonly string PATH = $"{Environment.CurrentDirectory}\\ json.json";
 
         private bool isSaved;
+        private bool isSaveButtonEnabled;
         private bool isValidNameSurname;
         private bool isValidContactNumber;
         private bool isValidDateOfBirth;
-        private bool isDataValid;
 
         public HRDepartamentBean(MainBean mainBean, ApplicationContext db)
         {
@@ -46,7 +46,6 @@ namespace PAPT_SoftwareWPF.Beans
             departments = new List<Department>();
             hRReport = new HRReport(Employments.ToList());
             hrExcelGenerator = new HRExcelGenerator();
-            hrJsonGenerator = new HRJsonGenerator(PATH);
             LoadData();
         }
 
@@ -113,7 +112,7 @@ namespace PAPT_SoftwareWPF.Beans
             set 
             { 
                 isValidNameSurname = value;
-                IsSaveButtonEnabel = value ? CheckDataValid() : false;
+                IsSaveButtonEnabled = value && CheckDataValid();
             }
         }
 
@@ -123,7 +122,7 @@ namespace PAPT_SoftwareWPF.Beans
             set
             {
                 isValidNameSurname = value;
-                IsSaveButtonEnabel = value ? CheckDataValid() : false;
+                IsSaveButtonEnabled = value && CheckDataValid();
             }
         }
 
@@ -133,7 +132,7 @@ namespace PAPT_SoftwareWPF.Beans
             set 
             { 
                 isValidContactNumber = value;
-                IsSaveButtonEnabel = value ? CheckDataValid() : false;
+                IsSaveButtonEnabled = value && CheckDataValid();
             }
         }
 
@@ -143,14 +142,19 @@ namespace PAPT_SoftwareWPF.Beans
             set 
             { 
                 isValidDateOfBirth = value;
-                IsSaveButtonEnabel = value ? CheckDataValid() : false;
+                IsSaveButtonEnabled = value && CheckDataValid();
             }
         }
 
-        public bool IsSaveButtonEnabel
+        public bool IsSaveButtonEnabled
         {
-            get { return isDataValid; }
-            set { isDataValid = value; OnPropertyChanged("IsSaveButtonEnabel"); }
+            get { return isSaveButtonEnabled; }
+            set 
+            { 
+                isSaveButtonEnabled = value;
+                IsSaved = !value;
+                OnPropertyChanged("IsSaveButtonEnabled"); 
+            }
         }
 
         #endregion
@@ -176,14 +180,19 @@ namespace PAPT_SoftwareWPF.Beans
             IsValidDateOfBirth = Employments.ToList().All(employment => !string.IsNullOrEmpty(employment.DateOfBirth));
         }
 
+        public void CheckDepartmentEdition(Department selectedDepartment)
+        {
+            
+        }
+
         public void CheckAllColumn()
         {
             CheckValidColumnYearOfBirth();
             CheckValodColumnContactNumber();
             CheckValidColumnName();
             CheckValidColumnSurname();
-            CheckDataValid();
         }
+
         private bool CheckDataValid()
         {
             return IsValidDateOfBirth && IsValidContactNumber && IsValidName && IsValidDateOfBirth && IsValidSurname;
@@ -221,10 +230,9 @@ namespace PAPT_SoftwareWPF.Beans
             IsValidDateOfBirth = false;
             IsValidName = false;
             IsValidSurname = false;
-            IsSaveButtonEnabel = false;
+            IsSaveButtonEnabled = false;
             Employments.Add(employment);
             db.Employments.Add(employment);
-            CheckAllColumn();
             IsSaved = false;
         }
 
@@ -241,14 +249,14 @@ namespace PAPT_SoftwareWPF.Beans
                 db.Departments.ForEachAsync(department => Departments.Add(department));
             }
             db.Employments.ForEachAsync(employment => Employments.Add(employment));
-            IsSaveButtonEnabel = false;
+            IsSaveButtonEnabled = false;
         }
         
         public void SaveChanges()
         {
             db.SaveChanges();
             IsSaved = true;
-            IsSaveButtonEnabel = false;
+            IsSaveButtonEnabled = false;
         }
 
         public void MakeReport()
