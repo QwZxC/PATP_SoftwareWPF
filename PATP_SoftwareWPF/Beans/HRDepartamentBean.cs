@@ -14,6 +14,7 @@ using PAPT_SoftwareWPF.Reports;
 using PAPT_SoftwareWPF.Reports.ExelGenerators;
 using System.IO;
 using PAPT_SoftwareWPF.Reports.JsonGenerators;
+using System.Windows;
 
 namespace PAPT_SoftwareWPF.Beans
 {
@@ -254,7 +255,15 @@ namespace PAPT_SoftwareWPF.Beans
         {
             Employments.ToList().ForEach(employment => HRReport.Employments.Add(employment));
             var hrExelReport = HRExcelGenerator.Generate(HRReport);
-            File.WriteAllBytes("Отчет отдела кадров.xlsx", hrExelReport);
+            try
+            {
+                File.WriteAllBytes("Отчет отдела кадров.xlsx", hrExelReport);
+            }
+            catch
+            {
+                MessageBox.Show("Пожалуйста,закройте файл и повторите сохранение", "Ошибка!", MessageBoxButton.OK);
+            }
+            HRReport.Employments = new List<Employment>();
         }
 
         public void MakeJsonReport()

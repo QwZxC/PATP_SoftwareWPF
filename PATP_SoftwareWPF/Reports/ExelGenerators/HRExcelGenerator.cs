@@ -68,6 +68,7 @@ namespace PAPT_SoftwareWPF.Reports.ExelGenerators
             
 
             sheet.Cells.AutoFitColumns();
+            
             return package.GetAsByteArray();
         }
     }

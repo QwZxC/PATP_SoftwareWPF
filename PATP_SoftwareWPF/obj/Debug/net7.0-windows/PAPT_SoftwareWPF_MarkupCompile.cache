@@ -1,5 +1,5 @@
 ﻿PAPT_SoftwareWPF
-1.0.0.0
+
 
 winexe
 C#
@@ -12,9 +12,9 @@ TRACE;DEBUG;NET;NET7_0;NETCOREAPP
 C:\Users\mihai\source\repos\PATP_SoftwareWPF\PATP_SoftwareWPF\App.xaml
 61239814180
 
-34217674633
+322023329423
 228-707616696
 Windows\MainWindow.xaml;Windows\Pages\AccountingAndFinanceDepartmentPage.xaml;Windows\Pages\HRDepartamentPage.xaml;Windows\Pages\PlanningDepartmentPage.xaml;Windows\Pages\ProductionDepartmentPage.xaml;Windows\Pages\StartPage.xaml;
 
-True
+False
 

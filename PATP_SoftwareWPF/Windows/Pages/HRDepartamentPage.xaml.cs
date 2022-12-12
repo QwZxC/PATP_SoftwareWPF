@@ -119,7 +119,7 @@ namespace PAPT_SoftwareWPF.Windows.Pages
         private void dateOfBirthTextBox_Changed(object sender, TextChangedEventArgs e)
         {
             TextBox textBox = sender as TextBox;
-            textBox.Text = Regex.Replace(textBox.Text, "[^0-9]*[/]", "");
+            textBox.Text = Regex.Replace(textBox.Text, "[^0-9-.-.]*", "");
             if (string.IsNullOrWhiteSpace(textBox.Text))
             {
                 textBox.Text = "0";

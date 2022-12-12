@@ -61,7 +61,7 @@ namespace PAPT_SoftwareWPF.Windows.Pages {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/PAPT_SoftwareWPF;V1.0.0.0;component/windows/pages/planningdepartmentpage.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/PAPT_SoftwareWPF;component/windows/pages/planningdepartmentpage.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\Windows\Pages\PlanningDepartmentPage.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
