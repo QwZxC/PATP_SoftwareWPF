@@ -46,6 +46,7 @@ namespace PAPT_SoftwareWPF.Beans
             departments = new List<Department>();
             hRReport = new HRReport(Employments.ToList());
             hrExcelGenerator = new HRExcelGenerator();
+            hrJsonGenerator = new HRJsonGenerator();
             LoadData();
         }
 
@@ -265,7 +266,7 @@ namespace PAPT_SoftwareWPF.Beans
             var hrExelReport = HRExcelGenerator.Generate(HRReport);
             try
             {
-                File.WriteAllBytes("Отчет отдела кадров.xlsx", hrExelReport);
+                File.WriteAllBytes("../../../Reports/Files/Отчет отдела кадров.xlsx", hrExelReport);
             }
             catch
             {

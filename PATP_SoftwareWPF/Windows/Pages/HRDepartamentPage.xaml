@@ -15,12 +15,18 @@
     <Grid x:Name="HRDepartamentGrid">
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="100"/>
             <RowDefinition />
             <RowDefinition Height="100" />
         </Grid.RowDefinitions>
 
         <DockPanel Grid.Row="0">
+            
+            <Label Content="Панель фильтрации"
+                   FontSize="32"
+                   DockPanel.Dock="Top"
+                   HorizontalAlignment="Left"/>
+            
             <TextBox x:Name="nameFilterTextBox"
                      TextChanged="universal_TextChanged"
                      MinWidth="182.5"/>
@@ -40,7 +46,7 @@
             <TextBox x:Name="contactNumberFilterTextBox"
                      TextChanged="universal_TextChanged"
                      MinWidth="182.5"/>
-            
+
             <ComboBox x:Name="departmentFilterComboBox"
                       ItemsSource="{Binding Departments}"
                       HorizontalAlignment="Left"
