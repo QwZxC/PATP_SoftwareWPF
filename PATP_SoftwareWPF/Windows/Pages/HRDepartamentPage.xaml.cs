@@ -1,7 +1,9 @@
-﻿using PAPT_SoftwareWPF.Beans;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using PAPT_SoftwareWPF.Beans;
 using PAPT_SoftwareWPF.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -20,12 +22,15 @@ namespace PAPT_SoftwareWPF.Windows.Pages
         StartBean startBean;
         private Brush invalidFieldColor = (Brush)new BrushConverter().ConvertFrom("#FFFFDDDB");
         private Brush validFieldColor = (Brush)new BrushConverter().ConvertFrom("#FFFFFFFF");
+        private bool isLoaded;
         public HRDepartamentPage(HRDepartamentBean hRDepartamentBean, StartBean startBean)
         {
             this.startBean = startBean;
             this.hRDepartmentbean = hRDepartamentBean;
             DataContext = hRDepartamentBean;
+            isLoaded = false;
             InitializeComponent();
+            isLoaded = true;
         }
 
         public HRDepartamentBean HRDepartamentbean
@@ -67,10 +72,12 @@ namespace PAPT_SoftwareWPF.Windows.Pages
             hRDepartmentbean.SelectedEmployment = employmentsDataTable.SelectedItem as Employment;
         }
 
-        private void nameTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void namesurnameTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             TextBox textBox = sender as TextBox;
+            int index = textBox.CaretIndex;
             textBox.Text = Regex.Replace(textBox.Text, "[^А-Яа-яЁё]*[ ]*", "");
+            textBox.CaretIndex = index;
             if (string.IsNullOrWhiteSpace(textBox.Text))
             {
                 textBox.Background = invalidFieldColor;
@@ -79,28 +86,18 @@ namespace PAPT_SoftwareWPF.Windows.Pages
             }
             textBox.Background = validFieldColor;
             if (!HRDepartamentbean.IsValidName)
-                HRDepartamentbean.CheckValidColumnName();
-        }
-
-        private void surnameTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            TextBox textBox = sender as TextBox;
-            textBox.Text = Regex.Replace(textBox.Text, "[^А-Яа-яЁё]*[ ]*", "");
-            if (string.IsNullOrWhiteSpace(textBox.Text))
             {
-                textBox.Background = invalidFieldColor;
-                HRDepartamentbean.IsValidSurname = false;
-                return;
-            }
-            textBox.Background = validFieldColor;
-            if (!HRDepartamentbean.IsValidSurname)
+                HRDepartamentbean.CheckValidColumnName();
                 HRDepartamentbean.CheckValidColumnSurname();
+            }
         }
 
         private void contactNumberTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             TextBox textBox = sender as TextBox;
+            int index = textBox.CaretIndex;
             textBox.Text = Regex.Replace(textBox.Text, "[^0-9]*", "");
+            textBox.CaretIndex = index;
             if (string.IsNullOrWhiteSpace(textBox.Text) || textBox.Text.Length != 11)
             {
                 textBox.Background = invalidFieldColor;
@@ -115,7 +112,9 @@ namespace PAPT_SoftwareWPF.Windows.Pages
         private void dateOfBirthTextBox_Changed(object sender, TextChangedEventArgs e)
         {
             TextBox textBox = sender as TextBox;
-            textBox.Text = Regex.Replace(textBox.Text, "[^0-9-.-.]*", "");
+            int index = textBox.CaretIndex;
+            textBox.Text = Regex.Replace(textBox.Text, "[^0-9.]", "");
+            textBox.CaretIndex = index;
             if (string.IsNullOrWhiteSpace(textBox.Text))
             {
                 textBox.Text = "0";
@@ -145,48 +144,6 @@ namespace PAPT_SoftwareWPF.Windows.Pages
         private void departamentsCombobox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             HRDepartamentbean.CheckDepartmentEdition((sender as ComboBox).SelectedItem as Department);
-        }
-
-        private void CollectionViewSource_Filter(object sender, FilterEventArgs e)
-        {
-            //FIX ME СУПЕР ПУПЕР ПЛОХАЯ ФИЛЬТРАЦИЯ СДЕЛАТЬ ПО УМНОМУ
-            if (e.Item != null)
-            {
-                Department department = departmentFilterComboBox.SelectedItem as Department;
-                string name = nameFilterTextBox.Text;
-                string surname = surnameFilterTextBox.Text;
-                string patronomic = patronomicFilterTextBox.Text;
-                string dateOfbirth = dateOfBirthFilterTextBox.Text;
-                string contactNumber = contactNumberFilterTextBox.Text;
-
-                if (department != null)
-                    e.Accepted = (e.Item as Employment).Department == department;
-
-                if (!string.IsNullOrEmpty(name))
-                    e.Accepted = (e.Item as Employment).Name.StartsWith(name);
-
-                if (!string.IsNullOrEmpty(surname))
-                    e.Accepted = (e.Item as Employment).Surname.StartsWith(surname);
-
-                if (!string.IsNullOrEmpty(patronomic))
-                    e.Accepted = (e.Item as Employment).Patronymic.StartsWith(patronomic);
-
-                if (!string.IsNullOrEmpty(dateOfbirth))
-                    e.Accepted = (e.Item as Employment).DateOfBirth.StartsWith(dateOfbirth);
-
-                if (!string.IsNullOrEmpty(contactNumber))
-                    e.Accepted = (e.Item as Employment).ContactNumber.StartsWith(contactNumber);
-            } 
-        }
-
-        private void departmentFilterComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            CollectionViewSource.GetDefaultView(employmentsDataTable.ItemsSource).Refresh();
-        }
-
-        private void universal_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            CollectionViewSource.GetDefaultView(employmentsDataTable.ItemsSource).Refresh();
         }
     }
 }

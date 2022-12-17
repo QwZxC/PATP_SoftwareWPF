@@ -9,7 +9,7 @@ namespace PAPT_SoftwareWPF.Models.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=PATP_SoftwareDB.db");
+            optionsBuilder.UseSqlite("Data Source=../../../PATP_SoftwareDB.db");
         }
     }
 }

@@ -7,56 +7,16 @@
       mc:Ignorable="d" 
       d:DesignHeight="800" d:DesignWidth="800"
       Title="Страница отдела кадров">
-    
-    <Page.Resources>
-        <CollectionViewSource x:Key="employmentsFilter" Source="{Binding Employments}" Filter="CollectionViewSource_Filter"/>
-    </Page.Resources>
-    
+
     <Grid x:Name="HRDepartamentGrid">
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="100"/>
             <RowDefinition />
             <RowDefinition Height="100" />
         </Grid.RowDefinitions>
 
-        <DockPanel Grid.Row="0">
-            
-            <Label Content="Панель фильтрации"
-                   FontSize="32"
-                   DockPanel.Dock="Top"
-                   HorizontalAlignment="Left"/>
-            
-            <TextBox x:Name="nameFilterTextBox"
-                     TextChanged="universal_TextChanged"
-                     MinWidth="182.5"/>
-            
-            <TextBox x:Name="surnameFilterTextBox"
-                     TextChanged="universal_TextChanged"
-                     MinWidth="182.5"/>
-            
-            <TextBox x:Name="patronomicFilterTextBox"
-                     TextChanged="universal_TextChanged"
-                     MinWidth="182.5"/>
-            
-            <TextBox x:Name="dateOfBirthFilterTextBox"
-                     TextChanged="universal_TextChanged"
-                     MinWidth="182.5"/>
-            
-            <TextBox x:Name="contactNumberFilterTextBox"
-                     TextChanged="universal_TextChanged"
-                     MinWidth="182.5"/>
+        <Grid Grid.Row="0">
 
-            <ComboBox x:Name="departmentFilterComboBox"
-                      ItemsSource="{Binding Departments}"
-                      HorizontalAlignment="Left"
-                      SelectionChanged="departmentFilterComboBox_SelectionChanged"
-                      DisplayMemberPath="Name"
-                      MinWidth="325"/>
-        </DockPanel>
-        
-        <Grid Grid.Row="1">
-            
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition Width="0.35*"/>
@@ -64,12 +24,11 @@
 
             <DataGrid x:Name="employmentsDataTable"
                       Grid.Column="0"
-                      ItemsSource="{Binding Source={StaticResource employmentsFilter}}"
+                      ItemsSource="{Binding Employments}"
                       HeadersVisibility="Column"
                       FontFamily="Inter"
                       FontSize="20"
                       AutoGenerateColumns="False"
-                      HorizontalScrollBarVisibility="Visible"
                       CanUserResizeRows="False"
                       CanUserAddRows="False"
                       CanUserResizeColumns="False"
@@ -85,7 +44,7 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                         TextChanged="nameTextBox_TextChanged"
+                                         TextChanged="namesurnameTextBox_TextChanged"
                                          Background="#FFFFDDDB"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
@@ -96,7 +55,7 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBox Text="{Binding Surname, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                         TextChanged="surnameTextBox_TextChanged"
+                                         TextChanged="namesurnameTextBox_TextChanged"
                                          Background="#FFFFDDDB"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
@@ -160,7 +119,7 @@
                 </DataGrid.Columns>
 
                 <DataGrid.ContextMenu>
-                    <ContextMenu x:Name="membersDataTableContextMenu">
+                    <ContextMenu>
                         <MenuItem x:Name="addEmploymentMenuItem" 
                                   Header="Добавить"  
                                   StaysOpenOnClick="True"
@@ -194,8 +153,8 @@
             <StackPanel DataContext="{Binding Path=DataContext.SelectedEmployment, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Page}}}"
                         Grid.Column="1"
                         Margin="5">
-                <TextBlock FontFamily="Inter"
-                           FontSize="20"
+                
+                <TextBlock FontSize="20"
                            TextWrapping="Wrap">
                     <TextBlock.Text>
                         <MultiBinding StringFormat="Имя: {0}">
@@ -204,8 +163,7 @@
                     </TextBlock.Text>
                 </TextBlock>
 
-                <TextBlock FontFamily="Inter"
-                           FontSize="20"
+                <TextBlock FontSize="20"
                            TextWrapping="Wrap">
                     <TextBlock.Text>
                         <MultiBinding StringFormat="Фамилия: {0}">
@@ -214,8 +172,7 @@
                     </TextBlock.Text>
                 </TextBlock>
 
-                <TextBlock FontFamily="Inter"
-                           FontSize="20">
+                <TextBlock FontSize="20">
                     <TextBlock.Text>
                         <MultiBinding StringFormat="Отчество: {0}">
                             <Binding Path="Patronymic" Mode="OneWay"/>
@@ -223,8 +180,7 @@
                     </TextBlock.Text>
                 </TextBlock>
 
-                <TextBlock FontFamily="Inter"
-                           FontSize="20">
+                <TextBlock FontSize="20">
                     <TextBlock.Text>
                         <MultiBinding StringFormat="Дата рождения: {0}">
                             <Binding Path="DateOfBirth" Mode="OneWay"/>
@@ -232,8 +188,7 @@
                     </TextBlock.Text>
                 </TextBlock>
 
-                <TextBlock FontFamily="Inter"
-                           FontSize="20">
+                <TextBlock FontSize="20">
                     <TextBlock.Text>
                         <MultiBinding StringFormat="Контактный телефон: {0}">
                             <Binding Path="ContactNumber" Mode="OneWay"/>
@@ -241,8 +196,7 @@
                     </TextBlock.Text>
                 </TextBlock>
 
-                <TextBlock FontFamily="Inter"
-                           FontSize="20">
+                <TextBlock FontSize="20">
                     <TextBlock.Text>
                         <MultiBinding StringFormat="Название отдела: {0}">
                             <Binding Path="Department.Name" Mode="OneWay"/>
@@ -250,8 +204,7 @@
                     </TextBlock.Text>
                 </TextBlock>
 
-                <TextBlock FontFamily="Inter"
-                           FontSize="20">
+                <TextBlock FontSize="20">
                     <TextBlock.Text>
                         <MultiBinding StringFormat="ID работника: {0}">
                             <Binding Path="EmploymentId" Mode="OneWay"/>
@@ -272,21 +225,19 @@
             </StackPanel>
         </Grid>
 
-        <DockPanel Grid.Row="2"
-                   HorizontalAlignment="Center">
+        <DockPanel Grid.Row="1"
+                   HorizontalAlignment="Center"
+                   Margin="5">
 
             <Button Content="Назад"
                     Click="backButton_Click"
                     DockPanel.Dock="Left"
-                    FontFamily="Inter"
                     FontSize="20"/>
 
             <Button Content="Сохранить"
                     Click="saveButton_Click"
-                    FontFamily="Inter"
                     FontSize="20"
-                    IsEnabled="{Binding IsSaveButtonEnabled}">
-            </Button>
+                    IsEnabled="{Binding IsSaveButtonEnabled}"/>
 
             <Button Content="В файл Exel"
                     DockPanel.Dock="Right"

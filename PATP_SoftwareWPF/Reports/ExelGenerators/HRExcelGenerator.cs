@@ -1,9 +1,5 @@
 ﻿using OfficeOpenXml;
-using OfficeOpenXml.Drawing.Chart;
-using OfficeOpenXml.Style;
-using PAPT_SoftwareWPF.Models;
 using System;
-using System.Linq;
 
 namespace PAPT_SoftwareWPF.Reports.ExelGenerators
 {
