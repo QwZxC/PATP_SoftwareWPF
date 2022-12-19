@@ -102,7 +102,6 @@
                                 <ComboBox ItemsSource="{Binding Departments}"
                                           DataContext="{Binding HRDepartamentbean ,RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Page}}}"
                                           SelectedItem="{Binding DataContext.Department, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGridCell}}}"
-                                          SelectionChanged="departamentsCombobox_SelectionChanged"
                                           DisplayMemberPath="Name"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
@@ -242,12 +241,14 @@
             <Button Content="В файл Exel"
                     DockPanel.Dock="Right"
                     Click="createExelFileButton_Click"
-                    FontSize="20"/>
+                    FontSize="20"
+                    IsEnabled="{Binding IsExcelButtonEnabled}"/>
             
             <Button Content="В файл Json"
                     Click="createJsonFileButton_Click"
                     FontSize="20"
-                    DockPanel.Dock="Left"/>
+                    DockPanel.Dock="Left"
+                    IsEnabled="{Binding IsJsonButtonEnabled}"/>
         </DockPanel>
     </Grid>
 </Page>

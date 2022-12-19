@@ -41,8 +41,9 @@ namespace PAPT_SoftwareWPF.Windows.Pages
         private void backButton_Click(object sender, RoutedEventArgs e)
         {
             // Допилить с проверкой на изменения
-            if (!hRDepartmentbean.IsSaved)
-                MessageBox.Show("Есть не сохранённые изменения");
+            if (!hRDepartmentbean.IsSaved
+                && MessageBox.Show("Вы не сохранили изменения", "Предупреждение!", MessageBoxButton.OKCancel) == MessageBoxResult.Cancel)
+                return;
             startBean.GoToStartPage();
         }
 
@@ -120,10 +121,17 @@ namespace PAPT_SoftwareWPF.Windows.Pages
                 textBox.Text = "0";
                 textBox.CaretIndex = 1;
             }
-            if (textBox.Text.Length != 10 || DateTime.Parse(textBox.Text) > DateTime.Now)
+            try
             {
-                textBox.Background = invalidFieldColor;
-                HRDepartamentbean.IsValidDateOfBirth = false;
+                if (textBox.Text.Length != 10 || DateTime.Parse(textBox.Text) > DateTime.Now)
+                {
+                    textBox.Background = invalidFieldColor;
+                    HRDepartamentbean.IsValidDateOfBirth = false;
+                    return;
+                }
+            }
+            catch
+            {
                 return;
             }
             textBox.Background = validFieldColor;
@@ -139,11 +147,6 @@ namespace PAPT_SoftwareWPF.Windows.Pages
         private void createJsonFileButton_Click(object sender, RoutedEventArgs e)
         {
             HRDepartamentbean.MakeJsonReport();
-        }
-
-        private void departamentsCombobox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            HRDepartamentbean.CheckDepartmentEdition((sender as ComboBox).SelectedItem as Department);
         }
     }
 }

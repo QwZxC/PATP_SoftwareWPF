@@ -33,10 +33,12 @@ namespace PAPT_SoftwareWPF.Beans
         private HRJsonGenerator hrJsonGenerator;
 
         private bool isSaved;
-        private bool isSaveButtonEnabled;
+        private bool isButtonEnabled;
         private bool isValidNameSurname;
         private bool isValidContactNumber;
         private bool isValidDateOfBirth;
+        private bool isExcelButtonEnabled;
+        private bool isJsonButtonEnabled;
 
         public HRDepartamentBean(MainBean mainBean, ApplicationContext db)
         {
@@ -51,7 +53,6 @@ namespace PAPT_SoftwareWPF.Beans
         }
 
         #region Propertie
-
 
         public MainBean MainBean
         {
@@ -114,6 +115,8 @@ namespace PAPT_SoftwareWPF.Beans
             { 
                 isValidNameSurname = value;
                 IsSaveButtonEnabled = value && CheckDataValid();
+                IsExcelButtonEnabled = value && CheckDataValid();
+                IsJsonButtonEnabled = value && CheckDataValid();
             }
         }
 
@@ -124,6 +127,8 @@ namespace PAPT_SoftwareWPF.Beans
             {
                 isValidNameSurname = value;
                 IsSaveButtonEnabled = value && CheckDataValid();
+                IsExcelButtonEnabled = value && CheckDataValid();
+                IsJsonButtonEnabled = value && CheckDataValid();
             }
         }
 
@@ -134,6 +139,8 @@ namespace PAPT_SoftwareWPF.Beans
             { 
                 isValidContactNumber = value;
                 IsSaveButtonEnabled = value && CheckDataValid();
+                IsExcelButtonEnabled = value && CheckDataValid();
+                IsJsonButtonEnabled = value && CheckDataValid();
             }
         }
 
@@ -144,17 +151,39 @@ namespace PAPT_SoftwareWPF.Beans
             { 
                 isValidDateOfBirth = value;
                 IsSaveButtonEnabled = value && CheckDataValid();
+                IsExcelButtonEnabled = value && CheckDataValid();
+                IsJsonButtonEnabled = value && CheckDataValid();
             }
         }
 
         public bool IsSaveButtonEnabled
         {
-            get { return isSaveButtonEnabled; }
+            get { return isButtonEnabled; }
             set 
             { 
-                isSaveButtonEnabled = value;
+                isButtonEnabled = value;
                 IsSaved = !value;
                 OnPropertyChanged("IsSaveButtonEnabled"); 
+            }
+        }
+
+        public bool IsExcelButtonEnabled
+        {
+            get { return isButtonEnabled; }
+            set
+            {
+                isExcelButtonEnabled = value;
+                OnPropertyChanged("IsExcelButtonEnabled");
+            }
+        }
+
+        public bool IsJsonButtonEnabled
+        {
+            get { return isButtonEnabled; }
+            set
+            {
+                isJsonButtonEnabled = value;
+                OnPropertyChanged("IsJsonButtonEnabled");
             }
         }
 
@@ -181,11 +210,6 @@ namespace PAPT_SoftwareWPF.Beans
             IsValidDateOfBirth = Employments.ToList().All(employment => !string.IsNullOrEmpty(employment.DateOfBirth));
         }
 
-        public void CheckDepartmentEdition(Department selectedDepartment)
-        {
-            
-        }
-
         public void CheckAllColumn()
         {
             CheckValidColumnYearOfBirth();
@@ -206,37 +230,6 @@ namespace PAPT_SoftwareWPF.Beans
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
         }
 
-        public void DeletEmployment(List<Employment> employments)
-        {
-            employments.ForEach(employments => employments.isDeleted = true);
-            Employments.ToList().ForEach(employment => 
-            {
-                if (employment.isDeleted)
-                {
-                    Employments.Remove(employment);
-                    db.Employments.Remove(employment);
-                }
-            });
-            IsSaved = false;
-        }
-
-        public void AddEmployment()
-        {
-            Employment employment = new Employment() 
-            {
-                EmploymentId = Employments.Count + 1
-            };
-            employment.Department = Departments[0];
-            IsValidContactNumber = false;
-            IsValidDateOfBirth = false;
-            IsValidName = false;
-            IsValidSurname = false;
-            IsSaveButtonEnabled = false;
-            Employments.Add(employment);
-            db.Employments.Add(employment);
-            IsSaved = false;
-        }
-
         public void LoadData()
         {
             db.Departments.ForEachAsync(department => Departments.Add(department));
@@ -251,6 +244,43 @@ namespace PAPT_SoftwareWPF.Beans
             }
             db.Employments.ForEachAsync(employment => Employments.Add(employment));
             IsSaveButtonEnabled = false;
+        }
+
+        public void DeletEmployment(List<Employment> employments)
+        {
+            employments.ForEach(employments => employments.isDeleted = true);
+            Employments.ToList().ForEach(employment => 
+            {
+                if (employment.isDeleted)
+                {
+                    Employments.Remove(employment);
+                    db.Employments.Remove(employment);
+                }
+            });
+            IsSaved = false;
+            CheckAllColumn();
+            IsExcelButtonEnabled = CheckDataValid();
+            IsJsonButtonEnabled = CheckDataValid();
+            IsSaveButtonEnabled = CheckDataValid();
+        }
+
+        public void AddEmployment()
+        {
+            Employment employment = new Employment() 
+            {
+                EmploymentId = Employments.Count + 1
+            };
+            employment.Department = Departments[0];
+            IsValidContactNumber = false;
+            IsValidDateOfBirth = false;
+            IsValidName = false;
+            IsValidSurname = false;
+            IsSaveButtonEnabled = false;
+            IsExcelButtonEnabled = false;
+            IsJsonButtonEnabled = false;
+            Employments.Add(employment);
+            db.Employments.Add(employment);
+            IsSaved = false;
         }
         
         public void SaveChanges()

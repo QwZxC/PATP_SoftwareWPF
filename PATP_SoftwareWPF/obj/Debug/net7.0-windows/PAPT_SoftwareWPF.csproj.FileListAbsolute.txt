@@ -151,13 +151,6 @@ C:\Users\mihai\Source\Repos\PATP_SoftwareWPF\PATP_SoftwareWPF\obj\Debug\net7.0-w
 C:\Users\mihai\Source\Repos\PATP_SoftwareWPF\PATP_SoftwareWPF\obj\Debug\net7.0-windows\App.g.cs
 C:\Users\mihai\Source\Repos\PATP_SoftwareWPF\PATP_SoftwareWPF\obj\Debug\net7.0-windows\PAPT_SoftwareWPF_MarkupCompile.cache
 C:\Users\mihai\Source\Repos\PATP_SoftwareWPF\PATP_SoftwareWPF\obj\Debug\net7.0-windows\PAPT_SoftwareWPF_MarkupCompile.lref
-C:\Users\mihai\Source\Repos\PATP_SoftwareWPF\PATP_SoftwareWPF\obj\Debug\net7.0-windows\Windows\MainWindow.baml
-C:\Users\mihai\Source\Repos\PATP_SoftwareWPF\PATP_SoftwareWPF\obj\Debug\net7.0-windows\Windows\Pages\AccountingAndFinanceDepartmentPage.baml
-C:\Users\mihai\Source\Repos\PATP_SoftwareWPF\PATP_SoftwareWPF\obj\Debug\net7.0-windows\Windows\Pages\HRDepartamentPage.baml
-C:\Users\mihai\Source\Repos\PATP_SoftwareWPF\PATP_SoftwareWPF\obj\Debug\net7.0-windows\Windows\Pages\PlanningDepartmentPage.baml
-C:\Users\mihai\Source\Repos\PATP_SoftwareWPF\PATP_SoftwareWPF\obj\Debug\net7.0-windows\Windows\Pages\ProductionDepartmentPage.baml
-C:\Users\mihai\Source\Repos\PATP_SoftwareWPF\PATP_SoftwareWPF\obj\Debug\net7.0-windows\Windows\Pages\StartPage.baml
-C:\Users\mihai\Source\Repos\PATP_SoftwareWPF\PATP_SoftwareWPF\obj\Debug\net7.0-windows\PAPT_SoftwareWPF.g.resources
 C:\Users\mihai\Source\Repos\PATP_SoftwareWPF\PATP_SoftwareWPF\obj\Debug\net7.0-windows\PAPT_SoftwareWPF.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\mihai\Source\Repos\PATP_SoftwareWPF\PATP_SoftwareWPF\obj\Debug\net7.0-windows\PAPT_SoftwareWPF.AssemblyInfoInputs.cache
 C:\Users\mihai\Source\Repos\PATP_SoftwareWPF\PATP_SoftwareWPF\obj\Debug\net7.0-windows\PAPT_SoftwareWPF.AssemblyInfo.cs
@@ -169,3 +162,10 @@ C:\Users\mihai\Source\Repos\PATP_SoftwareWPF\PATP_SoftwareWPF\obj\Debug\net7.0-w
 C:\Users\mihai\Source\Repos\PATP_SoftwareWPF\PATP_SoftwareWPF\obj\Debug\net7.0-windows\PAPT_SoftwareWPF.genruntimeconfig.cache
 C:\Users\mihai\Source\Repos\PATP_SoftwareWPF\PATP_SoftwareWPF\obj\Debug\net7.0-windows\ref\PAPT_SoftwareWPF.dll
 C:\Users\mihai\Source\Repos\PATP_SoftwareWPF\PATP_SoftwareWPF\bin\Debug\net7.0-windows\Newtonsoft.Json.dll
+C:\Users\mihai\Source\Repos\PATP_SoftwareWPF\PATP_SoftwareWPF\obj\Debug\net7.0-windows\Windows\MainWindow.baml
+C:\Users\mihai\Source\Repos\PATP_SoftwareWPF\PATP_SoftwareWPF\obj\Debug\net7.0-windows\Windows\Pages\AccountingAndFinanceDepartmentPage.baml
+C:\Users\mihai\Source\Repos\PATP_SoftwareWPF\PATP_SoftwareWPF\obj\Debug\net7.0-windows\Windows\Pages\HRDepartamentPage.baml
+C:\Users\mihai\Source\Repos\PATP_SoftwareWPF\PATP_SoftwareWPF\obj\Debug\net7.0-windows\Windows\Pages\PlanningDepartmentPage.baml
+C:\Users\mihai\Source\Repos\PATP_SoftwareWPF\PATP_SoftwareWPF\obj\Debug\net7.0-windows\Windows\Pages\ProductionDepartmentPage.baml
+C:\Users\mihai\Source\Repos\PATP_SoftwareWPF\PATP_SoftwareWPF\obj\Debug\net7.0-windows\Windows\Pages\StartPage.baml
+C:\Users\mihai\Source\Repos\PATP_SoftwareWPF\PATP_SoftwareWPF\obj\Debug\net7.0-windows\PAPT_SoftwareWPF.g.resources
